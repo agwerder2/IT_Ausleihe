@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-Ausleihe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>IT-Ausleihe</h1>
+        <nav>
+            <a href="javascript:void(0)" onclick="showForm()">Ausleihe</a>
+            <a href="javascript:void(0)" onclick="showHistory()">Historie</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Formularbereich -->
+        <div id="form-container">
+            <h2>Neuer Ausleihvorgang</h2>
+            <form id="loan-form">
+                <table>
+                    <tr>
+                        <td><label for="first-name">Vorname:</label></td>
+                        <td><input type="text" id="first-name" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="last-name">Nachname:</label></td>
+                        <td><input type="text" id="last-name" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="class">Klasse:</label></td>
+                        <td><input type="text" id="class" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">E-Mail:</label></td>
+                        <td><input type="email" id="email" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="device">Gerät:</label></td>
+                        <td>
+                            <select id="device" required>
+                                <option value="">Bitte auswählen</option>
+                                <option value="Laptop1">Laptop 1</option>
+                                <option value="Laptop2">Laptop 2</option>
+                                <option value="Laptop3">Laptop 3</option>
+                                <option value="Laptop3">Laptop 4</option>
+                                <option value="Laptop3">Laptop 5</option>
+                                <option value="Laptop3">Laptop 6</option>
+                                <option value="Laptop3">Laptop 7</option>
+                                <option value="Laptop3">Laptop 8</option>
+                                <option value="Laptop3">Laptop 9</option>
+                                <option value="Laptop10">Laptop 10</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="return-date">Abgabetermin:</label></td>
+                        <td><input type="date" id="return-date" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="return">Rückgabe:</label></td>
+                        <td>
+                            <div class="return-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="return-it" name="return-option">
+                                    An IT-Technik
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="return-teacher" name="return-option">
+                                    An letzte Lehrperson
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="submit">Speichern</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <!-- Historienbereich -->
+        <div id="history-container" style="display: none;">
+            <h2>Historie der Ausleihen</h2>
+            <table id="history-table">
+                <thead>
+                    <tr>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Klasse</th>
+                        <th>Gerät</th>
+                        <th>Rückgabe</th>
+                        <th>E-Mail</th>
+                        <th>Datum</th>
+                        <th>Löschen</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="clearHistory()">Historie löschen</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 IT-Ausleihe</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
