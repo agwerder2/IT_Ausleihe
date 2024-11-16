@@ -161,48 +161,17 @@ a:hover {
     }
 }
 
-
-/* Allgemeine Schrift- und Tabellenstile */
-tr {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-}
-
-/* Stil für die Rückgabe-Optionen */
-.return-options {
-    display: inline-block; /* Zeigt Optionen nebeneinander */
-}
-
-/* Stil für jedes Label (Checkbox und Text) */
-.checkbox-label {
-    display: inline-flex; /* Hält die Checkbox und den Text nebeneinander */
-    align-items: center;  /* Vertikale Ausrichtung */
-    margin-right: 20px;    /* Abstand zwischen den beiden Optionen */
-    font-family: 'Arial', sans-serif;  /* Gleiche Schriftart wie der restliche Text */
-    font-size: 16px;   /* Gleiche Schriftgröße wie der restliche Text */
-    color: #333;       /* Textfarbe */
-    font-weight: normal; /* Schriftgewicht normal */
-    cursor: pointer;   /* Handcursor für interaktive Elemente */
-    transition: color 0.3s ease;  /* Sanfte Übergänge für Farbe */
-}
-
-/* Stil für die Checkbox */
 .checkbox-label input {
-    margin-right: 10px; /* Abstand zwischen der Checkbox und dem Text */
-    transform: scale(1.2); /* Vergrößert die Checkbox */
+    margin-right: 10px; 
+    transform: scale(1.2); 
 }
 
-/* Hover-Effekt für das Label */
-.checkbox-label:hover {
-    color: #007bff; /* Textfarbe beim Hover */
-}
-
-/* Optionaler Stil für das Label */
-label {
-    font-weight: bold;
-}
-
-/* Styling für die Tabelle */
-td {
-    padding: 10px;
+.checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;
+    font-family: 'Arial', sans-serif; 
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
 }
