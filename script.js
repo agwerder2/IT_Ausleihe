@@ -1,17 +1,25 @@
 let historyData = JSON.parse(localStorage.getItem('history')) || [];
 
 document.getElementById('loan-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Verhindert das Standardverhalten
 
-    const firstName = document.getElementById('first-name').value;
-    const lastName = document.getElementById('last-name').value;
-    const className = document.getElementById('class').value;
+    // Werte aus den Eingabefeldern holen
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const className = document.getElementById('class').value.trim();
     const device = document.getElementById('device').value;
     const returnDate = document.getElementById('return-date').value;
     const returnStatus = "Noch in Ausleihe";
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('email').value.trim();
     const date = new Date().toLocaleDateString();
 
+    // Validierung: Sicherstellen, dass alle Felder ausgefüllt sind
+    if (!firstName || !lastName || !className || !device || !returnDate || !email) {
+        alert("Bitte alle Felder ausfüllen!");
+        return;
+    }
+
+    // Neues Ausleihobjekt erstellen
     const loan = {
         firstName,
         lastName,
@@ -23,13 +31,24 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
         date
     };
 
+    // In der Historie speichern
     historyData.push(loan);
     localStorage.setItem('history', JSON.stringify(historyData));
-    alert('Ausleihe gespeichert!');
 
-    showHistory(); // Nach dem Speichern die Historie anzeigen
-    updateQRCode(); // QR-Code bei jeder Änderung aktualisieren
+    // Bestätigung
+    alert('Ausleihe erfolgreich gespeichert!');
+
+    // Formular zurücksetzen, nachdem alles gespeichert wurde
+    document.getElementById('loan-form').reset();
+
+    // Historie anzeigen
+    showHistory();
+    updateQRCode();
 });
+
+
+
+
 
 function showForm() {
     document.getElementById('form-container').style.display = 'block';
