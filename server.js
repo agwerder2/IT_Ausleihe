@@ -1,52 +1,57 @@
 const express = require('express');
 const mysql = require('mysql2');
-const bodyParser = require('body-parser');
+const cors = require('cors');
 
-// Server einrichten
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json()); // Damit wir JSON im Body der Anfragen empfangen können
+app.use(cors()); // Wenn du Anfragen von einer anderen Domain zulassen willst
 
-// Verbindung zur MariaDB
+// MariaDB Verbindungsdetails
 const db = mysql.createConnection({
-    host: 'localhost', // Oder die IP deines Servers
-    user: 'root',      // MariaDB-Benutzername
-    password: 'password', // MariaDB-Passwort
-    database: 'it_ausleihe' // Name der Datenbank
+  host: 'localhost', // oder die IP-Adresse deines MariaDB-Servers
+  user: 'root', // Dein MariaDB-Benutzername
+  password: 'Init1234', // Dein MariaDB-Passwort
+  database: 'ausleihe' // Der Name der Datenbank
 });
 
-// Verbindung testen
-db.connect(err => {
-    if (err) throw err;
-    console.log('Verbunden mit MariaDB!');
+// Verbindung zur Datenbank herstellen
+db.connect((err) => {
+  if (err) {
+    console.error('Fehler bei der Verbindung zur Datenbank: ' + err.stack);
+    return;
+  }
+  console.log('Verbunden mit der Datenbank!');
 });
 
-// Neue Ausleihe speichern
-app.post('/add-loan', (req, res) => {
-    const { firstName, lastName, className, device, returnDate, email } = req.body;
-
-    const query = `
-        INSERT INTO history (first_name, last_name, class_name, device, return_date, email)
-        VALUES (?, ?, ?, ?, ?, ?)
-    `;
-
-    db.query(query, [firstName, lastName, className, device, returnDate, email], (err) => {
-        if (err) return res.status(500).send('Speichern fehlgeschlagen!');
-        res.status(200).send('Erfolgreich gespeichert!');
-    });
+// Route zum Abrufen der Ausleihhistorie
+app.get('/history', (req, res) => {
+  db.query('SELECT * FROM ausleihen ORDER BY date DESC', (err, results) => {
+    if (err) {
+      res.status(500).send('Fehler beim Abrufen der Ausleihhistorie');
+    } else {
+      res.json(results);
+    }
+  });
 });
 
-// Historie abrufen
-app.get('/get-history', (req, res) => {
-    const query = 'SELECT * FROM history';
+// Route zum Hinzufügen eines neuen Ausleihvorgangs
+app.post('/loan', (req, res) => {
+  const { firstName, lastName, className, device, returnStatus, returnDate, email, date } = req.body;
+  
+  const query = 'INSERT INTO ausleihen (first_name, last_name, class_name, device, return_status, return_date, email, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [firstName, lastName, className, device, returnStatus, returnDate, email, date];
 
-    db.query(query, (err, results) => {
-        if (err) return res.status(500).send('Abrufen fehlgeschlagen!');
-        res.status(200).json(results);
-    });
+  db.query(query, values, (err, results) => {
+    if (err) {
+      res.status(500).send('Fehler beim Hinzufügen der Ausleihe');
+    } else {
+      res.status(201).send('Ausleihe erfolgreich hinzugefügt');
+    }
+  });
 });
 
 // Server starten
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server läuft auf http://localhost:${PORT}`);
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server läuft auf http://localhost:${port}`);
 });

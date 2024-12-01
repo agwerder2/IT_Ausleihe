@@ -6,7 +6,6 @@
     <title>IT-Ausleihe</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
     <header>
@@ -14,6 +13,7 @@
         <nav>
             <a href="javascript:void(0)" onclick="showForm()">Ausleihe</a>
             <a href="javascript:void(0)" onclick="showHistory()">Historie</a>
+            <a href="javascript:void(0)" onclick="showStats()">Statistiken</a>
         </nav>
     </header>
 
@@ -58,22 +58,26 @@
                         </td>
                     </tr>
                     <tr>
+                        <td><label for="reason">Grund der Ausleihe:</label></td>
+                        <td>
+                            <select id="reason" required>
+                                <option value="">Bitte auswählen</option>
+                                <option value="Defektes Gerät">Defektes Gerät</option>
+                                <option value="Vergessenes BYOD">Vergessenes BYOD</option>
+                                <option value="Sonstiges">Sonstiges</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td><label for="return-date">Abgabetermin:</label></td>
                         <td><input type="date" id="return-date" required></td>
                     </tr>
                     <tr>
-                        <td><label for="return">Rückgabe:</label></td>
-                        <td>
-                            <div class="return-options">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="return-it" name="return-option">
-                                    An IT-Technik
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="return-teacher" name="return-option">
-                                    An letzte Lehrperson
-                                </label>
-                            </div>
+                        <td colspan="2">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="in-building" required>
+                                Bestätige, dass das Gerät das GIBZ nicht verlässt.
+                            </label>
                         </td>
                     </tr>
                     <tr>
@@ -95,6 +99,7 @@
                         <th>Nachname</th>
                         <th>Klasse</th>
                         <th>Gerät</th>
+                        <th>Grund</th>
                         <th>Rückgabe</th>
                         <th>E-Mail</th>
                         <th>Datum</th>
@@ -104,6 +109,12 @@
                 <tbody></tbody>
             </table>
             <button onclick="clearHistory()">Historie löschen</button>
+        </div>
+
+        <!-- Statistikbereich -->
+        <div id="stats-container" style="display: none;">
+            <h2>Statistiken</h2>
+            <div id="stats"></div>
         </div>
     </main>
 
