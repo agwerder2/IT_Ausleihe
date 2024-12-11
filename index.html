@@ -13,7 +13,6 @@
         <nav>
             <a href="javascript:void(0)" onclick="showForm()">Ausleihe</a>
             <a href="javascript:void(0)" onclick="showHistory()">Historie</a>
-            <a href="javascript:void(0)" onclick="showStats()">Statistiken</a>
         </nav>
     </header>
 
@@ -42,19 +41,7 @@
                     <tr>
                         <td><label for="device">Gerät:</label></td>
                         <td>
-                            <select id="device" required>
-                                <option value="">Bitte auswählen</option>
-                                <option value="Laptop1">Laptop 1</option>
-                                <option value="Laptop2">Laptop 2</option>
-                                <option value="Laptop3">Laptop 3</option>
-                                <option value="Laptop4">Laptop 4</option>
-                                <option value="Laptop5">Laptop 5</option>
-                                <option value="Laptop6">Laptop 6</option>
-                                <option value="Laptop7">Laptop 7</option>
-                                <option value="Laptop8">Laptop 8</option>
-                                <option value="Laptop9">Laptop 9</option>
-                                <option value="Laptop10">Laptop 10</option>
-                            </select>
+                            <select id="device" required></select>
                         </td>
                     </tr>
                     <tr>
@@ -103,25 +90,33 @@
                         <th>Rückgabe</th>
                         <th>E-Mail</th>
                         <th>Datum</th>
-                        <th>Löschen</th>
+                    </tr>
+                </thead>
+                <button onclick="clearHistory()">Historie löschen</button>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Bereich für aktuelle Ausleihen -->
+        <div id="current-loans-container">
+            <h2>Aktuell ausgeliehene Geräte</h2>
+            <table id="current-loans-table">
+                <thead>
+                    <tr>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Gerät</th>
+                        <th>Rückgabedatum</th>
+                        <th>Aktion</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
             </table>
-            <button onclick="clearHistory()">Historie löschen</button>
-        </div>
-
-        <!-- Statistikbereich -->
-        <div id="stats-container" style="display: none;">
-            <h2>Statistiken</h2>
-            <div id="stats"></div>
         </div>
     </main>
-
     <footer>
         <p>&copy; 2024 IT-Ausleihe</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
