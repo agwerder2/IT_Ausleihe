@@ -18,25 +18,13 @@
 
     <main>
         <!-- Formularbereich -->
-        <div id="form-container">
+        <div id="form-container" style="display: block;">
             <h2>Neuer Ausleihvorgang</h2>
             <form id="loan-form">
                 <table>
                     <tr>
-                        <td><label for="first-name">Vorname:</label></td>
-                        <td><input type="text" id="first-name" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="last-name">Nachname:</label></td>
-                        <td><input type="text" id="last-name" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="class">Klasse:</label></td>
-                        <td><input type="text" id="class" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="email">E-Mail:</label></td>
-                        <td><input type="email" id="email" required></td>
+                        <td><label for="username">Benutzername:</label></td>
+                        <td><input type="text" id="username" required></td>
                     </tr>
                     <tr>
                         <td><label for="device">Gerät:</label></td>
@@ -82,9 +70,7 @@
             <table id="history-table">
                 <thead>
                     <tr>
-                        <th>Vorname</th>
-                        <th>Nachname</th>
-                        <th>Klasse</th>
+                        <th>Benutzername</th>
                         <th>Gerät</th>
                         <th>Grund</th>
                         <th>Rückgabe</th>
@@ -103,8 +89,7 @@
             <table id="current-loans-table">
                 <thead>
                     <tr>
-                        <th>Vorname</th>
-                        <th>Nachname</th>
+                        <th>Benutzername</th>
                         <th>Gerät</th>
                         <th>Rückgabedatum</th>
                         <th>Aktion</th>

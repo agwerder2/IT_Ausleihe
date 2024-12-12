@@ -11,13 +11,10 @@ renderCurrentLoans();
 function handleFormSubmit(event) {
     event.preventDefault();
 
-    const firstName = document.getElementById('first-name').value.trim();
-    const lastName = document.getElementById('last-name').value.trim();
-    const className = document.getElementById('class').value.trim();
+    const username = document.getElementById('username').value.trim();
     const device = document.getElementById('device').value;
     const reason = document.getElementById('reason').value;
     const returnDate = document.getElementById('return-date').value;
-    const email = document.getElementById('email').value.trim();
     const inBuilding = document.getElementById('in-building').checked;
     const date = new Date().toLocaleDateString();
 
@@ -32,14 +29,11 @@ function handleFormSubmit(event) {
     }
 
     const loan = {
-        firstName,
-        lastName,
-        className,
+        username,
         device,
         reason,
         returnStatus: "Noch in Ausleihe",
         returnDate,
-        email,
         date
     };
 
@@ -60,14 +54,12 @@ function renderHistory() {
     historyData.forEach((loan, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${loan.firstName}</td>
-            <td>${loan.lastName}</td>
-            <td>${loan.className}</td>
+            <td>${loan.username}</td>
             <td>${loan.device}</td>
             <td>${loan.reason}</td>
             <td>${loan.returnDate}</td>
-            <td>${loan.email}</td>
             <td>${loan.date}</td>
+            <td><button onclick="deleteHistoryItem(${index})">Löschen</button></td>
         `;
         tbody.appendChild(row);
     });
@@ -97,11 +89,10 @@ function renderCurrentLoans() {
     historyData.filter(loan => loan.returnStatus === "Noch in Ausleihe").forEach((loan, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${loan.firstName}</td>
-            <td>${loan.lastName}</td>
+            <td>${loan.username}</td>
             <td>${loan.device}</td>
             <td>${loan.returnDate}</td>
-            <td><button onclick="returnDevice(${index})">Zurückgebracht</button></td>
+            <td><button onclick="returnDevice(${index})" ${loan.returnStatus === "Zurückgebracht" ? 'disabled' : ''}>Zurückgebracht</button></td>
         `;
         tbody.appendChild(row);
     });
@@ -119,13 +110,13 @@ function returnDevice(index) {
 function showForm() {
     document.getElementById('form-container').style.display = 'block';
     document.getElementById('history-container').style.display = 'none';
-    document.getElementById('stats-container').style.display = 'none';
+    document.getElementById('current-loans-container').style.display = 'none';
 }
 
 function showHistory() {
     document.getElementById('form-container').style.display = 'none';
     document.getElementById('history-container').style.display = 'block';
-    document.getElementById('stats-container').style.display = 'none';
+    document.getElementById('current-loans-container').style.display = 'none';
     renderHistory();
 }
 

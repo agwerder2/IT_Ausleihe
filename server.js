@@ -36,10 +36,10 @@ app.get('/history', (req, res) => {
 
 // Route zum Hinzufügen eines neuen Ausleihvorgangs
 app.post('/loan', (req, res) => {
-  const { firstName, lastName, className, device, returnStatus, returnDate, email, date } = req.body;
+  const { username, device, returnStatus, returnDate, email, date } = req.body;
   
-  const query = 'INSERT INTO ausleihen (first_name, last_name, class_name, device, return_status, return_date, email, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-  const values = [firstName, lastName, className, device, returnStatus, returnDate, email, date];
+  const query = 'INSERT INTO ausleihen (username, device, return_status, return_date, email, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [username, device, returnStatus, returnDate, email, date];
 
   db.query(query, values, (err, results) => {
     if (err) {
