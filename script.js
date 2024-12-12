@@ -45,6 +45,7 @@ function handleFormSubmit(event) {
     renderHistory();
     renderAvailableDevices();
     renderCurrentLoans();
+    renderStatistics(); 
 }
 
 function renderHistory() {
@@ -92,7 +93,7 @@ function renderCurrentLoans() {
             <td>${loan.username}</td>
             <td>${loan.device}</td>
             <td>${loan.returnDate}</td>
-            <td><button onclick="returnDevice(${index})" ${loan.returnStatus === "Zurückgebracht" ? 'disabled' : ''}>Zurückgebracht</button></td>
+            <td><button onclick="returnDevice(${index})">Zurückgebracht</button></td>
         `;
         tbody.appendChild(row);
     });
@@ -107,18 +108,7 @@ function returnDevice(index) {
     renderCurrentLoans();
 }
 
-function showForm() {
-    document.getElementById('form-container').style.display = 'block';
-    document.getElementById('history-container').style.display = 'none';
-    document.getElementById('current-loans-container').style.display = 'none';
-}
 
-function showHistory() {
-    document.getElementById('form-container').style.display = 'none';
-    document.getElementById('history-container').style.display = 'block';
-    document.getElementById('current-loans-container').style.display = 'none';
-    renderHistory();
-}
 
 // Funktion zum Löschen der gesamten Historie
 function clearHistory() {
@@ -128,6 +118,8 @@ function clearHistory() {
         renderHistory();
         renderCurrentLoans();
         renderAvailableDevices();
+        renderStatistics(); 
+
     }
 }
 
@@ -139,5 +131,56 @@ function deleteHistoryItem(index) {
         renderHistory();
         renderCurrentLoans();
         renderAvailableDevices();
+        renderStatistics();
     }
+}
+
+
+function renderStatistics() {
+    const tbody = document.getElementById('stats-table').querySelector('tbody');
+    tbody.innerHTML = '';
+
+    const usernameStats = {};
+
+    // Zähle, wie oft jedes Gerät ausgeliehen wurde
+    historyData.forEach(loan => {
+        if (usernameStats[loan.username]) {
+            usernameStats[loan.username]++;
+        } else {
+            usernameStats[loan.username] = 1;
+        }
+    });
+
+    // Sortiere Geräte nach der Anzahl der Ausleihen (absteigend)
+    const sortedUsers = Object.keys(usernameStats).sort((a, b) => usernameStats[b] - usernameStats[a]);
+
+    // Füge die Geräte zur Rangliste hinzu
+    sortedUsers.forEach(username => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${username}</td>
+            <td>${usernameStats[username]}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+
+function showStatistics() {
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('history-container').style.display = 'none';
+    document.getElementById('stats-container').style.display = 'block';
+    renderStatistics(); // Statistik beim Anzeigen der Statistik-Seite rendern
+}
+function showForm() {
+    document.getElementById('form-container').style.display = 'block';
+    document.getElementById('history-container').style.display = 'none';
+    document.getElementById('stats-container').style.display = 'none';
+}
+
+function showHistory() {
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('history-container').style.display = 'block';
+    document.getElementById('stats-container').style.display = 'none';
+    renderHistory();
 }
