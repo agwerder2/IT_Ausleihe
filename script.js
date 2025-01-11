@@ -100,13 +100,25 @@ function renderCurrentLoans() {
 }
 
 function returnDevice(index) {
-    historyData[index].returnStatus = "Zurückgebracht";
-    localStorage.setItem('history', JSON.stringify(historyData));
+    // Sicherstellen, dass der Index gültig ist und das Gerät noch ausgeliehen ist
+    if (historyData[index]) {
+        if (historyData[index].returnStatus === "Noch in Ausleihe") {
+            // Status ändern
+            historyData[index].returnStatus = "Zurückgebracht";
+            localStorage.setItem('history', JSON.stringify(historyData));
 
-    // Nur die aktuell ausgeliehenen Geräte neu rendern, die Historie bleibt erhalten
-    renderAvailableDevices();
-    renderCurrentLoans();
+            // Nur verfügbare Geräte und aktuelle Ausleihen aktualisieren
+            renderAvailableDevices();
+            renderCurrentLoans();
+        } else {
+            alert("Dieses Gerät wurde bereits zurückgebracht.");
+        }
+    } else {
+        console.error("Ungültiger Index für returnDevice:", index);
+    }
 }
+
+
 
 
 
